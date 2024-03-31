@@ -1,0 +1,5 @@
+11:58:16 [INF] [ATARASHIBEASTX #1 ] Now listening on: http://localhost:5113
+11:58:16 [INF] [ATARASHIBEASTX #1 ] Application started. Press Ctrl+C to shut down.
+11:58:16 [INF] [ATARASHIBEASTX #1 ] Hosting environment: Development
+11:58:16 [INF] [ATARASHIBEASTX #1 ] Content root path: D:\4_semester_git\TrojanDumplingWhiteFilling\BAD3\MyBGList_Chap7
+11:58:30 [INF] [ATARASHIBEASTX #14 ] Application is shutting down...

@@ -1,0 +1,12 @@
+services:
+  db:
+    container_name: mssql-server
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      MSSQL_SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+    - "1433:1433"
+
+
+## Remember to run docker and migrate the database, run seed from swagger.
