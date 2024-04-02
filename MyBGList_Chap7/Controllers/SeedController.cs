@@ -103,7 +103,7 @@ namespace MyBGList.Controllers
                     var records2 = csv.GetRecords<BakingRecordMap>();
                     foreach (var record in records2)
                     {
-<<<<<<< HEAD
+
                         // var match1 = existingOrders.GetValueOrDefault(record.PacketOrderId);
                         // if (match1 == null)
                         // {
@@ -111,7 +111,7 @@ namespace MyBGList.Controllers
                         //     continue;
                         // }
 
-=======
+
                         // Check if the Order with the specified ID exists in the context
                         var existingOrder = _context.Orders
                         .Local
@@ -119,7 +119,7 @@ namespace MyBGList.Controllers
                         // var existingOrder = _context.Orders
                         //     .AsNoTrackingWithIdentityResolution()
                         //     .ToDictionary(o => o.Id)[record.PacketOrderId];
->>>>>>> 9acd8361f8921ac776cc21890dfcc0643d458968
+
 
                         var packet = new Packet()
                         {
@@ -127,7 +127,7 @@ namespace MyBGList.Controllers
                             Order = existingOrders.GetValueOrDefault(record.PacketOrderId),
                         };
                         _context.Packets.Add(packet);
-<<<<<<< HEAD
+                        
                         if (packet != null)
                             _context.Entry(packet).State = EntityState.Detached;
 
@@ -160,7 +160,7 @@ namespace MyBGList.Controllers
                         _context.BatchStocks.Add(batchStock);
                         if (batchStock != null)
                             _context.Entry(batchStock).State = EntityState.Detached;
-=======
+
                         //await _context.SaveChangesAsync();
                         // Check if the Order and BakingGood with the specified IDs exist in the context
                         existingOrder = _context.Orders
@@ -207,7 +207,6 @@ namespace MyBGList.Controllers
                         //     Quantity = record.BatchStockQuantity
                         // });
                         _context.ChangeTracker.Clear();
->>>>>>> 9acd8361f8921ac776cc21890dfcc0643d458968
                     }
                 }
                 using var transaction = _context.Database.BeginTransaction();
