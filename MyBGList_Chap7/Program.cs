@@ -96,6 +96,7 @@ builder.Services.AddControllers(options =>
         (x, y) => $"The value '{x}' is not valid for {y}.");
     options.ModelBindingMessageProvider.SetMissingKeyOrValueAccessor(
         () => $"A value is required.");
+
 });
 
 
@@ -112,6 +113,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"))
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+        .EnableSensitiveDataLogging()
     );
 
 

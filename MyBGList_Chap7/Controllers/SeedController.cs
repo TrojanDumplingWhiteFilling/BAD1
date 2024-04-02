@@ -100,32 +100,36 @@ namespace MyBGList.Controllers
                     foreach (var record in records2)
                     {
                         // Check if the Order with the specified ID exists in the context
-                        // var existingOrder = _context.Orders
-                        // .AsNoTrackingWithIdentityResolution()
-                        // .FirstOrDefault(o => o.Id == record.PacketOrderId);
                         var existingOrder = _context.Orders
-                            .AsNoTrackingWithIdentityResolution()
-                            .ToDictionary(o => o.Id)[record.PacketOrderId];
+                        .Local
+                        .FirstOrDefault(o => o.Id == record.PacketOrderId);
+                        // var existingOrder = _context.Orders
+                        //     .AsNoTrackingWithIdentityResolution()
+                        //     .ToDictionary(o => o.Id)[record.PacketOrderId];
+
                         var packet = new Packet()
                         {
                             TrackId = record.TrackId,
                             Order = existingOrder
                         };
                         _context.Packets.Add(packet);
-                        await _context.SaveChangesAsync();
+                        //await _context.SaveChangesAsync();
                         // Check if the Order and BakingGood with the specified IDs exist in the context
-                        // existingOrder = _context.Orders
-                        // .AsNoTrackingWithIdentityResolution()
-                        // .FirstOrDefault(o => o.Id == record.OrderBakingGoodOrderId);
+                        existingOrder = _context.Orders
+                            .Local
+                            .FirstOrDefault(o => o.Id == record.OrderBakingGoodOrderId);
 
+                        var existingBakingGood = _context.BakingGoods
+                            .Local
+                            .FirstOrDefault(bg => bg.Id == record.OrderBakingGoodBakingGoodId);
                         // Add the OrderBakingGood
                         _context.OrderBakingGoods.Add(new OrderBakingGood()
                         {
                             Order = existingOrder,
-                            BakingGood = _context.BakingGoods
-                                .AsNoTrackingWithIdentityResolution()
-                                .ToDictionary(bg => bg.Id)[record.OrderBakingGoodBakingGoodId],
+                            BakingGood = existingBakingGood,
                             Quantity = record.OrderBakingGoodQuantity
+                            // OrderId = existingOrder.Id,
+                            // BakingGoodId = existingBakingGood.Id
                         });
                         // var packet = new Packet()
                         // {
@@ -154,6 +158,7 @@ namespace MyBGList.Controllers
                         //     StockId = record.BatchStockStockId,
                         //     Quantity = record.BatchStockQuantity
                         // });
+                        _context.ChangeTracker.Clear();
                     }
 
                     await _context.SaveChangesAsync();
