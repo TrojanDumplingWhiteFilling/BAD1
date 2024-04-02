@@ -303,6 +303,7 @@ d:\4_semester_git\4th-semester-turn-ins\BAD\ass3\MyBGList_Chap7_dotnet8\MyBGList
 d:\4_semester_git\4th-semester-turn-ins\BAD\ass3\MyBGList_Chap7_dotnet8\MyBGList_Chap7\obj\Debug\net8.0\MyBGList_Chap7.pdb
 d:\4_semester_git\4th-semester-turn-ins\BAD\ass3\MyBGList_Chap7_dotnet8\MyBGList_Chap7\obj\Debug\net8.0\MyBGList_Chap7.genruntimeconfig.cache
 d:\4_semester_git\4th-semester-turn-ins\BAD\ass3\MyBGList_Chap7_dotnet8\MyBGList_Chap7\obj\Debug\net8.0\ref\MyBGList_Chap7.dll
+
 C:\4_semester_git\Turn ins\BAD3\MyBGList_Chap7\bin\Debug\net8.0\appsettings.Development.json
 C:\4_semester_git\Turn ins\BAD3\MyBGList_Chap7\bin\Debug\net8.0\appsettings.json
 C:\4_semester_git\Turn ins\BAD3\MyBGList_Chap7\bin\Debug\net8.0\MyBGList_Chap7.exe
@@ -456,3 +457,4 @@ C:\4_semester_git\Turn ins\BAD3\MyBGList_Chap7\obj\Debug\net8.0\refint\MyBGList_
 C:\4_semester_git\Turn ins\BAD3\MyBGList_Chap7\obj\Debug\net8.0\MyBGList_Chap7.pdb
 C:\4_semester_git\Turn ins\BAD3\MyBGList_Chap7\obj\Debug\net8.0\MyBGList_Chap7.genruntimeconfig.cache
 C:\4_semester_git\Turn ins\BAD3\MyBGList_Chap7\obj\Debug\net8.0\ref\MyBGList_Chap7.dll
+

@@ -18,7 +18,7 @@ namespace MyBGList.Models
         public int Quantity { get; set; }
 
         // Navigation properties
-        public BakingGood? BakingGood { get; set; }
         public Order? Order { get; set; }
+        public BakingGood? BakingGood { get; set; }
     }
 }
