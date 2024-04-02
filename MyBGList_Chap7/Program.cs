@@ -96,6 +96,7 @@ builder.Services.AddControllers(options =>
         (x, y) => $"The value '{x}' is not valid for {y}.");
     options.ModelBindingMessageProvider.SetMissingKeyOrValueAccessor(
         () => $"A value is required.");
+
 });
 
 
