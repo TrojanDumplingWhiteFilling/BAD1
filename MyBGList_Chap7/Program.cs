@@ -112,6 +112,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     .UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"))
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+        .EnableSensitiveDataLogging()
     );
 
 

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\MyBGList_Chap7.props" />
+</Project>

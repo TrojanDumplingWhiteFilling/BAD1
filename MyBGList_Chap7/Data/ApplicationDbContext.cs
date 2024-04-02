@@ -15,9 +15,9 @@ namespace MyBGList_Chap6.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Order>()
-                .HasMany(o => o.Packets)  // Packet has one Order
-                .WithOne(p => p.Order)  // Order has many Packets
+            modelBuilder.Entity<Packet>()
+                .HasOne(p => p.Order)  // Packet has one Order
+                .WithMany(p => p.Packets)  // Order has many Packets
                 .HasForeignKey(p => p.OrderId)  // Foreign key
                 .IsRequired()  // Not nullable
                 .OnDelete(DeleteBehavior.Cascade);  // Cascade delete if Order is deleted
