@@ -73,6 +73,24 @@ namespace MyBGList_Chap6.Data
                 .HasForeignKey(bs => bs.StockId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // adding many-to-many relationship betweeb Stock and Allergen
+            modelBuilder.Entity<StockAllergen>()
+                .HasKey(sa => new { sa.StockId, sa.AllergenId });
+            
+            modelBuilder.Entity<StockAllergen>()
+                .HasOne(sa => sa.Stock)
+                .WithMany(s => s.StockAllergens)
+                .HasForeignKey(sa => sa.StockId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<StockAllergen>()
+                .HasOne(sa => sa.Allergen)
+                .WithMany(a => a.StockAllergens)
+                .HasForeignKey(sa => sa.AllergenId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Order> Orders => Set<Order>();
@@ -83,5 +101,10 @@ namespace MyBGList_Chap6.Data
         public DbSet<OrderBakingGood> OrderBakingGoods => Set<OrderBakingGood>();
         public DbSet<BakingGoodBatch> BakingGoodBatches => Set<BakingGoodBatch>();
         public DbSet<BatchStock> BatchStocks => Set<BatchStock>();
+
+        // DbSet for Allergen
+        public DbSet<Allergen> Allergens => Set<Allergen>();
+        // DbSet for StockAllergen
+        public DbSet<StockAllergen> StockAllergens => Set<StockAllergen>();
     }
 }

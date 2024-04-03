@@ -18,5 +18,8 @@ namespace Bakery.Models
         public int Quantity { get; set; }
 
         public ICollection<BatchStock>? BatchStocks { get; set; }
+
+        // reference to StockAllergen added
+        public ICollection<StockAllergen>? StockAllergens { get; set; }
     }
 }
