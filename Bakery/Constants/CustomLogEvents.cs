@@ -18,5 +18,11 @@
         public const int BakingGoods_Post = 50320;
         public const int BakingGoods_Put = 50330;
         public const int BakingGoods_Delete = 50340;
+
+        public const int Stock_Get = 50410;
+        public const int Stock_Post = 50420;
+        public const int Stock_Put = 50430;
+        public const int Stock_Delete = 50440;
+
     }
 }
