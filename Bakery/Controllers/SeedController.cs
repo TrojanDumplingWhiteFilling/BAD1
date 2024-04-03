@@ -201,6 +201,43 @@ namespace Bakery.Controllers
                 _context.BatchStocks.Add(batchStock2);
                 _context.BatchStocks.Add(batchStock3);
 
+                // add allergen data
+                var allergen1 = new Allergen()
+                {
+                    AllergenName = "Gluten"
+                };
+                _context.Allergens.Add(allergen1);
+
+                var allergen2 = new Allergen()
+                {
+                    AllergenName = "Dairy"
+                };
+                _context.Allergens.Add(allergen2);
+
+                var allergen3 = new Allergen()
+                {
+                    AllergenName = "Nuts"
+                };
+                _context.Allergens.Add(allergen3);
+
+                var stockAllergen1 = new StockAllergen()
+                {
+                    Stock = stock1,
+                    StockId = stock1.Id,
+                    Allergen = allergen1,
+                    AllergenId = allergen1.AllergenId
+                };
+
+                var stockAllergen2 = new StockAllergen()
+                {
+                    Stock = stock3,
+                    StockId = stock3.Id,
+                    Allergen = allergen2,
+                    AllergenId = allergen2.AllergenId
+                };
+                _context.StockAllergens.Add(stockAllergen1);
+                _context.StockAllergens.Add(stockAllergen2);
+
                 await _context.SaveChangesAsync();
 
                 return new JsonResult(new
@@ -213,7 +250,9 @@ namespace Bakery.Controllers
                     Packets = _context.Packets.Count(),
                     OrderBakingGoods = _context.OrderBakingGoods.Count(),
                     BakingGoodBatches = _context.BakingGoodBatches.Count(),
-                    BatchStocks = _context.BatchStocks.Count()
+                    BatchStocks = _context.BatchStocks.Count(),
+                    Allergens = _context.Allergens.Count(),
+                    StockAllergens = _context.StockAllergens.Count()
                 });
             }
             catch (Exception ex)
