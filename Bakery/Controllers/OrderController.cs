@@ -191,6 +191,44 @@ namespace Bakery.Controllers
             return Ok(restDTO);
         }
 
+        [HttpGet(Name = "GetAllOrderContentsASC")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
+        public async Task<IActionResult> GetAllOrderContentsASC()
+        {
+            _logger.LogInformation(CustomLogEvents.Orders_Get,
+                "Get method started.");
+
+            // Retrieve packets associated with the specified order id and send Construct the DTO
+            var bakedgood = await _context.OrderBakingGoods
+                .OrderBy(p => p.BakingGood.Name)
+                .Select(p => new BakedGoodQuantityDTO
+                {
+                    BakedGood = p.BakingGood.Name,
+                    Quantity = p.Quantity
+                }).ToListAsync();
+
+            // Construct the response DTO
+            var restDTO = new RestDTO<BakedGoodQuantityDTO>
+            {
+                Data = bakedgood,
+                // You may set other properties such as page index, page size, and record count if needed
+                Links = new List<LinkDTO>
+            {
+            // Add HATEOAS links as needed
+            new LinkDTO(
+                Url.Action(
+                    "GetAllOrderContentsASC",
+                    "Order",
+                    new { },
+                    Request.Scheme)!,
+                "self",
+                "GET")
+            }
+            };
+
+            return Ok(restDTO);
+        }
+
 
     }
 }

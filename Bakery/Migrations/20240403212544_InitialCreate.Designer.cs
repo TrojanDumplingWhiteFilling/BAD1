@@ -12,7 +12,7 @@ using MyBGList_Chap6.Data;
 namespace Bakery.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240403200218_InitialCreate")]
+    [Migration("20240403212544_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
