@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MyBGList_Chap7.Migrations
+namespace Bakery.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
