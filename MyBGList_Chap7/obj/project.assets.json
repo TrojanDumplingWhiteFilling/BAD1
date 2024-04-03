@@ -5471,11 +5471,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\4_semester_git\\Turn ins\\BAD3\\MyBGList_Chap7\\MyBGList_Chap7.csproj",
+      "projectUniqueName": "D:\\4_semester_git\\TrojansDumplingsWhite\\BAD3\\MyBGList_Chap7\\MyBGList_Chap7.csproj",
       "projectName": "MyBGList_Chap7",
-      "projectPath": "C:\\4_semester_git\\Turn ins\\BAD3\\MyBGList_Chap7\\MyBGList_Chap7.csproj",
+      "projectPath": "D:\\4_semester_git\\TrojansDumplingsWhite\\BAD3\\MyBGList_Chap7\\MyBGList_Chap7.csproj",
       "packagesPath": "C:\\Users\\entei\\.nuget\\packages\\",
-      "outputPath": "C:\\4_semester_git\\Turn ins\\BAD3\\MyBGList_Chap7\\obj\\",
+      "outputPath": "D:\\4_semester_git\\TrojansDumplingsWhite\\BAD3\\MyBGList_Chap7\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5590,7 +5590,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

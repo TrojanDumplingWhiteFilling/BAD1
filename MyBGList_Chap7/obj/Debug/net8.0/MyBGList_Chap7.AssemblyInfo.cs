@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyBGList_Chap7")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0418df311fd7f82971530dcce948c47ab8ff4d8d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dabf77f10f73828a22ae6474b6dc7aa09dc26cd2")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyBGList_Chap7")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyBGList_Chap7")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

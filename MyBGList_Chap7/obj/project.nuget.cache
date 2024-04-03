@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gaS2yqA6doBNbI8YNpQLlxgNOKKlXNWU6VUJy3qtuIoa1oI5qSQsvpT1DfROUFSS1rHaKi29HqEq4Ojr6SZDsQ==",
+  "dgSpecHash": "FUISyExclFnX8uNXwFAm85ODYlHbycWDxOly2OgpMuA8A59lFaJsXbjGOfwKNxEOxCe2qykzLAE8rfszNW6LsA==",
   "success": true,
-  "projectFilePath": "C:\\4_semester_git\\Turn ins\\BAD3\\MyBGList_Chap7\\MyBGList_Chap7.csproj",
+  "projectFilePath": "D:\\4_semester_git\\TrojansDumplingsWhite\\BAD3\\MyBGList_Chap7\\MyBGList_Chap7.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\entei\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\entei\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

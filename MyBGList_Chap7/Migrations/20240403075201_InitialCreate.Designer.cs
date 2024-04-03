@@ -12,11 +12,7 @@ using MyBGList_Chap6.Data;
 namespace MyBGList_Chap7.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:MyBGList_Chap7/Migrations/20240402204427_InitialCreate.Designer.cs
-    [Migration("20240402204427_InitialCreate")]
-========
-    [Migration("20240402115507_InitialCreate")]
->>>>>>>> 9acd8361f8921ac776cc21890dfcc0643d458968:MyBGList_Chap7/Migrations/20240402115507_InitialCreate.Designer.cs
+    [Migration("20240403075201_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

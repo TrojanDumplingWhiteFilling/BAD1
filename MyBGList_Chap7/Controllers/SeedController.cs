@@ -88,7 +88,7 @@ namespace MyBGList.Controllers
                 }
                 await _context.SaveChangesAsync();
                 _context.ChangeTracker.Clear();
-
+                using var transaction = _context.Database.BeginTransaction();
                 var existingOrders = await _context.Orders.ToDictionaryAsync(o => o.Id);
                 var existingBakingGoods = await _context.BakingGoods.ToDictionaryAsync(bg => bg.Id);
                 var existingBatches = await _context.Batches.ToDictionaryAsync(b => b.Id);
@@ -103,45 +103,42 @@ namespace MyBGList.Controllers
                     var records2 = csv.GetRecords<BakingRecordMap>();
                     foreach (var record in records2)
                     {
-
-                        // var match1 = existingOrders.GetValueOrDefault(record.PacketOrderId);
-                        // if (match1 == null)
-                        // {
-                        //     _logger.LogError($"Order with ID {record.OrderBakingGoodOrderId} not found while seeding OrderBakingGood");
-                        //     continue;
-                        // }
-
-
-                        // Check if the Order with the specified ID exists in the context
-                        var existingOrder = _context.Orders
-                        .Local
-                        .FirstOrDefault(o => o.Id == record.PacketOrderId);
-                        // var existingOrder = _context.Orders
-                        //     .AsNoTrackingWithIdentityResolution()
-                        //     .ToDictionary(o => o.Id)[record.PacketOrderId];
-
-
+                        var order1 = existingOrders.GetValueOrDefault(record.PacketOrderId);
                         var packet = new Packet()
                         {
                             TrackId = record.TrackId,
-                            Order = existingOrders.GetValueOrDefault(record.PacketOrderId),
+                            Order = order1
                         };
                         _context.Packets.Add(packet);
-                        
+                        _context.Orders.Update(order1);
                         if (packet != null)
                             _context.Entry(packet).State = EntityState.Detached;
+                    }
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Order] ON");
+                    await _context.SaveChangesAsync();
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Order] OFF");
 
-
+                    foreach (var record in records2)
+                    {
+                        var order1 = existingOrders.GetValueOrDefault(record.OrderBakingGoodOrderId);
+                        var bg1 = existingBakingGoods.GetValueOrDefault(record.OrderBakingGoodBakingGoodId);
                         var orderBakingGood = new OrderBakingGood()
                         {
-                            Order = existingOrders.GetValueOrDefault(record.OrderBakingGoodOrderId),
-                            BakingGood = existingBakingGoods.GetValueOrDefault(record.OrderBakingGoodBakingGoodId),
+                            Order = order1,
+                            BakingGood = bg1,
                             Quantity = record.OrderBakingGoodQuantity
                         };
                         _context.OrderBakingGoods.Add(orderBakingGood);
                         if (orderBakingGood != null)
                             _context.Entry(orderBakingGood).State = EntityState.Detached;
+                    }
 
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT BakingGood ON");
+                    await _context.SaveChangesAsync();
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT BakingGood OFF");
+
+                    foreach (var record in records2)
+                    {
                         var bakingGoodBatch = new BakingGoodBatch()
                         {
                             BakingGood = existingBakingGoods.GetValueOrDefault(record.BakingGoodBatchBakingGoodId),
@@ -151,6 +148,14 @@ namespace MyBGList.Controllers
                         _context.BakingGoodBatches.Add(bakingGoodBatch);
                         if (bakingGoodBatch != null)
                             _context.Entry(bakingGoodBatch).State = EntityState.Detached;
+                    }
+
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Batch] ON");
+                    await _context.SaveChangesAsync();
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Batch] OFF");
+
+                    foreach (var record in records2)
+                    {
                         var batchStock = new BatchStock()
                         {
                             Batch = existingBatches.GetValueOrDefault(record.BatchStockBatchId),
@@ -160,66 +165,11 @@ namespace MyBGList.Controllers
                         _context.BatchStocks.Add(batchStock);
                         if (batchStock != null)
                             _context.Entry(batchStock).State = EntityState.Detached;
-
-                        //await _context.SaveChangesAsync();
-                        // Check if the Order and BakingGood with the specified IDs exist in the context
-                        existingOrder = _context.Orders
-                            .Local
-                            .FirstOrDefault(o => o.Id == record.OrderBakingGoodOrderId);
-
-                        var existingBakingGood = _context.BakingGoods
-                            .Local
-                            .FirstOrDefault(bg => bg.Id == record.OrderBakingGoodBakingGoodId);
-                        // Add the OrderBakingGood
-                        _context.OrderBakingGoods.Add(new OrderBakingGood()
-                        {
-                            Order = existingOrder,
-                            BakingGood = existingBakingGood,
-                            Quantity = record.OrderBakingGoodQuantity
-                            // OrderId = existingOrder.Id,
-                            // BakingGoodId = existingBakingGood.Id
-                        });
-                        // var packet = new Packet()
-                        // {
-                        //     TrackId = record.TrackId,
-                        //     Order = _context.Orders.Where(o => o.Id == record.PacketOrderId).FirstOrDefault()
-                        // };
-                        // _context.Packets.Add(packet);
-
-                        // _context.OrderBakingGoods.Add(new OrderBakingGood()
-                        // {
-                        //     Order = _context.Orders.Where(o => o.Id == record.OrderBakingGoodOrderId).FirstOrDefault(),
-                        //     BakingGood = _context.BakingGoods.Where(bg => bg.Id == record.OrderBakingGoodBakingGoodId).FirstOrDefault(),
-                        //     Quantity = record.OrderBakingGoodQuantity
-                        // });
-
-                        // _context.BakingGoodBatches.Add(new BakingGoodBatch()
-                        // {
-                        //     BakingGoodId = record.BakingGoodBatchBakingGoodId,
-                        //     BatchId = record.BakingGoodBatchBatchId,
-                        //     Quantity = record.BakingGoodBatchQuantity
-                        // });
-
-                        // _context.BatchStocks.Add(new BatchStock()
-                        // {
-                        //     BatchId = record.BatchStockBatchId,
-                        //     StockId = record.BatchStockStockId,
-                        //     Quantity = record.BatchStockQuantity
-                        // });
-                        _context.ChangeTracker.Clear();
                     }
                 }
-                using var transaction = _context.Database.BeginTransaction();
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [BakingGood] ON");
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Batch] ON");
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Order] ON");
+
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Stock] ON");
-
                 await _context.SaveChangesAsync();
-
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [BakingGood] OFF");
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Batch] OFF");
-                _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Order] OFF");
                 _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [Stock] OFF");
                 transaction.Commit();
                 _context.ChangeTracker.Clear();
