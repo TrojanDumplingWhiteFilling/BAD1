@@ -8,7 +8,7 @@ using MyBGList_Chap6.Data;
 
 #nullable disable
 
-namespace MyBGList_Chap7.Migrations
+namespace Bakery.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

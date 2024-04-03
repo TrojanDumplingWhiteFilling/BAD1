@@ -9,10 +9,10 @@ using MyBGList_Chap6.Data;
 
 #nullable disable
 
-namespace MyBGList_Chap7.Migrations
+namespace Bakery.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240403075201_InitialCreate")]
+    [Migration("20240403200218_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace MyBGList_Chap7.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MyBGList.Models.BakingGood", b =>
+            modelBuilder.Entity("Bakery.Models.BakingGood", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("BakingGood");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.BakingGoodBatch", b =>
+            modelBuilder.Entity("Bakery.Models.BakingGoodBatch", b =>
                 {
                     b.Property<int>("BatchId")
                         .HasColumnType("int");
@@ -64,7 +64,7 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("BakingGoodBatch");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Batch", b =>
+            modelBuilder.Entity("Bakery.Models.Batch", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,7 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("Batch");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.BatchStock", b =>
+            modelBuilder.Entity("Bakery.Models.BatchStock", b =>
                 {
                     b.Property<int>("BatchId")
                         .HasColumnType("int");
@@ -104,7 +104,7 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("BatchStock");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Order", b =>
+            modelBuilder.Entity("Bakery.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,7 +125,7 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.OrderBakingGood", b =>
+            modelBuilder.Entity("Bakery.Models.OrderBakingGood", b =>
                 {
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -143,7 +143,7 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("OrderBakingGood");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Packet", b =>
+            modelBuilder.Entity("Bakery.Models.Packet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,7 +166,7 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("Packet");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Stock", b =>
+            modelBuilder.Entity("Bakery.Models.Stock", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -187,15 +187,15 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.BakingGoodBatch", b =>
+            modelBuilder.Entity("Bakery.Models.BakingGoodBatch", b =>
                 {
-                    b.HasOne("MyBGList.Models.BakingGood", "BakingGood")
+                    b.HasOne("Bakery.Models.BakingGood", "BakingGood")
                         .WithMany("BakingGoodBatches")
                         .HasForeignKey("BakingGoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyBGList.Models.Batch", "Batch")
+                    b.HasOne("Bakery.Models.Batch", "Batch")
                         .WithMany("BakingGoodBatches")
                         .HasForeignKey("BatchId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -206,15 +206,15 @@ namespace MyBGList_Chap7.Migrations
                     b.Navigation("Batch");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.BatchStock", b =>
+            modelBuilder.Entity("Bakery.Models.BatchStock", b =>
                 {
-                    b.HasOne("MyBGList.Models.Batch", "Batch")
+                    b.HasOne("Bakery.Models.Batch", "Batch")
                         .WithMany("BatchStocks")
                         .HasForeignKey("BatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyBGList.Models.Stock", "Stock")
+                    b.HasOne("Bakery.Models.Stock", "Stock")
                         .WithMany("BatchStocks")
                         .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -225,15 +225,15 @@ namespace MyBGList_Chap7.Migrations
                     b.Navigation("Stock");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.OrderBakingGood", b =>
+            modelBuilder.Entity("Bakery.Models.OrderBakingGood", b =>
                 {
-                    b.HasOne("MyBGList.Models.BakingGood", "BakingGood")
+                    b.HasOne("Bakery.Models.BakingGood", "BakingGood")
                         .WithMany("OrderBakingGoods")
                         .HasForeignKey("BakingGoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyBGList.Models.Order", "Order")
+                    b.HasOne("Bakery.Models.Order", "Order")
                         .WithMany("OrderBakingGoods")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -244,9 +244,9 @@ namespace MyBGList_Chap7.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Packet", b =>
+            modelBuilder.Entity("Bakery.Models.Packet", b =>
                 {
-                    b.HasOne("MyBGList.Models.Order", "Order")
+                    b.HasOne("Bakery.Models.Order", "Order")
                         .WithMany("Packets")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -255,28 +255,28 @@ namespace MyBGList_Chap7.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.BakingGood", b =>
+            modelBuilder.Entity("Bakery.Models.BakingGood", b =>
                 {
                     b.Navigation("BakingGoodBatches");
 
                     b.Navigation("OrderBakingGoods");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Batch", b =>
+            modelBuilder.Entity("Bakery.Models.Batch", b =>
                 {
                     b.Navigation("BakingGoodBatches");
 
                     b.Navigation("BatchStocks");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Order", b =>
+            modelBuilder.Entity("Bakery.Models.Order", b =>
                 {
                     b.Navigation("OrderBakingGoods");
 
                     b.Navigation("Packets");
                 });
 
-            modelBuilder.Entity("MyBGList.Models.Stock", b =>
+            modelBuilder.Entity("Bakery.Models.Stock", b =>
                 {
                     b.Navigation("BatchStocks");
                 });
