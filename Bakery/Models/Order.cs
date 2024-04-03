@@ -16,7 +16,8 @@ namespace Bakery.Models
         public string DeliveryPlace { get; set; } = null!;
 
         [Required]
-        public DateTime DeliveryDate { get; set; }
+        [MaxLength(13)]
+        public string DeliveryDate { get; set; }
 
         // Navigation properties
         public ICollection<Packet>? Packets { get; set; }
