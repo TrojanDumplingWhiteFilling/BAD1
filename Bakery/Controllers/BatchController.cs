@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bakery.Constants;
 using System.Linq.Dynamic.Core.Exceptions;
+using System.Reflection.Metadata;
+using System.Runtime.InteropServices.JavaScript;
 
 namespace Bakery.Controllers
 {
@@ -65,6 +67,45 @@ namespace Bakery.Controllers
 
             return Ok(restDTO);
         }
+
+        [HttpGet("AvgDelay/", Name = "GetAverageDelay")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
+        public async Task<IActionResult> GetAverageDelay()
+        {
+            _logger.LogInformation(CustomLogEvents.Batch_Get,
+                "Get method started.");
+
+            // Retrieve packets associated with the specified order id and send Construct the DTO
+            var delays = await _context.Batches
+                .Select(b => EF.Functions.DateDiffMinute(b.EndDateTime, b.ActualEndTime))
+                .ToListAsync();
+
+            var averageDelay = delays.Any() ? delays.Average() : 0;
+
+            List<double> doubles = new List<double>();
+            doubles.Add(averageDelay);
+
+            // Construct the response DTO
+            var restDTO = new RestDTO<double>
+            {
+                Data = doubles,
+                Links = new List<LinkDTO>
+            {
+            // Add HATEOAS links as needed
+            new LinkDTO(
+                Url.Action(
+                    "GetAverageDelay",
+                    "Batch",
+                    new { },
+                    Request.Scheme)!,
+                "self",
+                "GET")
+        }
+            };
+
+            return Ok(restDTO);
+        }
+
     }
 }
 

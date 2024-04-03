@@ -80,13 +80,13 @@ namespace Bakery.Controllers
                 {
                     StartDateTime = DateTime.Parse("2022-01-01T08:00:00"),
                     EndDateTime = DateTime.Parse("2022-01-01T12:00:00"),
-                    ActualEndTime = DateTime.Parse("2022-01-01T12:00:00")
+                    ActualEndTime = DateTime.Parse("2022-01-01T14:00:00")
                 };
                 var batch2 = new Batch()
                 {
                     StartDateTime = DateTime.Parse("2022-01-02T08:00:00"),
                     EndDateTime = DateTime.Parse("2022-01-02T12:00:00"),
-                    ActualEndTime = DateTime.Parse("2022-01-02T12:00:00")
+                    ActualEndTime = DateTime.Parse("2022-01-02T13:00:00")
                 };
 
                 _context.Batches.Add(batch1);
