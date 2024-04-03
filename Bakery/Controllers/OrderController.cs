@@ -28,54 +28,54 @@ namespace Bakery.Controllers
             _logger = logger;
         }
 
-        [HttpGet("All", Name = "GetOrdersContentAndPackets")]
-        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
-        public async Task<IActionResult> Get(
-            [FromQuery] RequestDTO<OrderDTO> input)
-        {
-            _logger.LogInformation(CustomLogEvents.Orders_Get,
-                "Get method started.");
+        //     [HttpGet("All", Name = "GetOrdersContentAndPackets")]
+        //     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
+        //     public async Task<IActionResult> Get(
+        //         [FromQuery] RequestDTO<OrderDTO> input)
+        //     {
+        //         _logger.LogInformation(CustomLogEvents.Orders_Get,
+        //             "Get method started.");
 
-            var query = _context.Orders
-                .Include(o => o.OrderBakingGoods)
-                .AsQueryable();
+        //         var query = _context.Orders
+        //             .Include(o => o.OrderBakingGoods)
+        //             .AsQueryable();
 
-            if (!string.IsNullOrEmpty(input.FilterQuery))
-            {
-                query = query.Where(o => o.DeliveryPlace.Contains(input.FilterQuery)
-                                          || o.DeliveryDate.ToString().Contains(input.FilterQuery));
-            }
+        //         if (!string.IsNullOrEmpty(input.FilterQuery))
+        //         {
+        //             query = query.Where(o => o.DeliveryPlace.Contains(input.FilterQuery)
+        //                                       || o.DeliveryDate.ToString().Contains(input.FilterQuery));
+        //         }
 
-            var recordCount = await query.CountAsync();
+        //         var recordCount = await query.CountAsync();
 
-            query = query
-                .OrderBy($"{input.SortColumn} {input.SortOrder}")
-                .Skip(input.PageIndex * input.PageSize)
-                .Take(input.PageSize);
+        //         query = query
+        //             .OrderBy($"{input.SortColumn} {input.SortOrder}")
+        //             .Skip(input.PageIndex * input.PageSize)
+        //             .Take(input.PageSize);
 
-            var orders = await query.ToListAsync();
+        //         var orders = await query.ToListAsync();
 
-            var links = new List<LinkDTO>
-    {
-        new LinkDTO(
-            Url.Action(
-                null,
-                "Order",
-                new { input.PageIndex, input.PageSize },
-                Request.Scheme)!,
-            "self",
-            "GET")
-    };
+        //         var links = new List<LinkDTO>
+        // {
+        //     new LinkDTO(
+        //         Url.Action(
+        //             null,
+        //             "Order",
+        //             new { input.PageIndex, input.PageSize },
+        //             Request.Scheme)!,
+        //         "self",
+        //         "GET")
+        // };
 
-            return Ok(new RestDTO<Order>()
-            {
-                Data = orders,
-                PageIndex = input.PageIndex,
-                PageSize = input.PageSize,
-                RecordCount = recordCount,
-                Links = links
-            });
-        }
+        //         return Ok(new RestDTO<Order>()
+        //         {
+        //             Data = orders,
+        //             PageIndex = input.PageIndex,
+        //             PageSize = input.PageSize,
+        //             RecordCount = recordCount,
+        //             Links = links
+        //         });
+        //     }
 
         [HttpGet("Info/{orderId}", Name = "GetOrderInfo")]
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
@@ -186,7 +186,46 @@ namespace Bakery.Controllers
                     Request.Scheme)!,
                 "self",
                 "GET")
+            }
+            };
+
+            return Ok(restDTO);
         }
+
+        [HttpGet("AllBakedGoods/{orderId}", Name = "GetAllBakedGoods")]
+        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
+        public async Task<IActionResult> GetAllBakedGoods(int orderId)
+        {
+            _logger.LogInformation(CustomLogEvents.Orders_Get,
+                "Get method started.");
+
+            // Retrieve packets associated with the specified order id and send Construct the DTO
+            var bakedgood = await _context.OrderBakingGoods
+                .Where(p => p.OrderId == orderId)
+                .OrderBy(p => p.BakingGood.Name)
+                .Select(p => new BakedGoodQuantityDTO
+                {
+                    BakedGood = p.BakingGood.Name,
+                    Quantity = p.Quantity
+                }).ToListAsync();
+
+            // Construct the response DTO
+            var restDTO = new RestDTO<BakedGoodQuantityDTO>
+            {
+                Data = bakedgood,
+                // You may set other properties such as page index, page size, and record count if needed
+                Links = new List<LinkDTO>
+            {
+            // Add HATEOAS links as needed
+            new LinkDTO(
+                Url.Action(
+                    "GetAllBakedGoods",
+                    "Order",
+                    new { orderId },
+                    Request.Scheme)!,
+                "self",
+                "GET")
+            }
             };
 
             return Ok(restDTO);
