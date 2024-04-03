@@ -115,46 +115,6 @@ namespace Bakery.Controllers
             return Ok(restDTO);
         }
 
-        [HttpGet("Contents/{orderId}", Name = "GetOrderContents")]
-        [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
-        public async Task<IActionResult> GetOrderContents(int orderId)
-        {
-            _logger.LogInformation(CustomLogEvents.Orders_Get,
-                "Get method started.");
-
-            // Retrieve packets associated with the specified order id and send Construct the DTO
-            var orderInfo = await _context.Orders
-                .Include(o => o.OrderBakingGoods)
-                .ThenInclude(obg => obg.BakingGood)
-                .Where(o => o.Id == orderId)
-                .Select(o => new BakedGoodsDTO
-                {
-                    Quantity = o.OrderBakingGoods.Select(obg => obg.Quantity).FirstOrDefault(),
-                    BakedGood = o.OrderBakingGoods.Select(obg => obg.BakingGood.Name).FirstOrDefault()
-                }).ToListAsync();
-
-            // Construct the response DTO
-            var restDTO = new RestDTO<BakedGoodsDTO>
-            {
-                Data = orderInfo,
-                // You may set other properties such as page index, page size, and record count if needed
-                Links = new List<LinkDTO>
-            {
-            // Add HATEOAS links as needed
-            new LinkDTO(
-                Url.Action(
-                    "GetOrderInfo",
-                    "Order",
-                    new { orderId },
-                    Request.Scheme)!,
-                "self",
-                "GET")
-        }
-            };
-
-            return Ok(restDTO);
-        }
-
         [HttpGet("TrackIds/{orderId}", Name = "GetPacketsForOrder")]
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
         public async Task<IActionResult> GetPacketsForOrder(int orderId)
@@ -192,9 +152,9 @@ namespace Bakery.Controllers
             return Ok(restDTO);
         }
 
-        [HttpGet("AllBakedGoods/{orderId}", Name = "GetAllBakedGoods")]
+        [HttpGet("Contents/{orderId}", Name = "GetOrderContents")]
         [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
-        public async Task<IActionResult> GetAllBakedGoods(int orderId)
+        public async Task<IActionResult> GetOrderContents(int orderId)
         {
             _logger.LogInformation(CustomLogEvents.Orders_Get,
                 "Get method started.");
@@ -219,7 +179,7 @@ namespace Bakery.Controllers
             // Add HATEOAS links as needed
             new LinkDTO(
                 Url.Action(
-                    "GetAllBakedGoods",
+                    "GetOrderContents",
                     "Order",
                     new { orderId },
                     Request.Scheme)!,
