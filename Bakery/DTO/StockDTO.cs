@@ -10,6 +10,7 @@ namespace Bakery.DTO
     {
         public string? Ingredient { get; set; }
         public int Quantity { get; set; }
+        public List<string>? Allergens { get; set; }
     }
 }
 

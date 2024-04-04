@@ -40,7 +40,10 @@ namespace Bakery.Controllers
             .Select(bs => new StockDTO
             {
                 Ingredient = bs.Stock.Name,
-                Quantity = bs.Quantity
+                Quantity = bs.Quantity,
+                Allergens = bs.Stock.StockAllergens
+                      .Select(sa => sa.Allergen.AllergenName)
+                      .ToList()
             })
             .ToListAsync();
 
