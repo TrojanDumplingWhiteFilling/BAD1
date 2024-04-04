@@ -19,6 +19,9 @@ namespace Bakery.Models
         //public DateTime DeliveryDate { get; set; }
         public string DeliveryDate { get; set; }
 
+        [Required]
+        public string GPSCoordinates { get; set; } 
+
         // Navigation properties
         public ICollection<Packet>? Packets { get; set; }
         public ICollection<OrderBakingGood>? OrderBakingGoods { get; set; }
