@@ -21,6 +21,8 @@ namespace Bakery.DTO
     public class PacketDTO // for displaying query #5
     {
         public string? TrackId { get; set; }
+        public string? DeliveryPlace { get; set; }
+        public string GPSCoordinates { get; set; }
     }
 
     public class OrderBakingGoodDTO

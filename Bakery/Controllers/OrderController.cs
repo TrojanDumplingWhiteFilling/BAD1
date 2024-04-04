@@ -127,7 +127,9 @@ namespace Bakery.Controllers
                 .Where(p => p.OrderId == orderId)
                 .Select(p => new PacketDTO
                 {
-                    TrackId = p.TrackId
+                    TrackId = p.TrackId,
+                    DeliveryPlace =p.Order.DeliveryPlace,
+                    GPSCoordinates = p.Order.GPSCoordinates
                 }).ToListAsync();
 
             // Construct the response DTO
