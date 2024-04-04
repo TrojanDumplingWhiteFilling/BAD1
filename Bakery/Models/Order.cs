@@ -16,7 +16,7 @@ namespace Bakery.Models
         public string DeliveryPlace { get; set; } = null!;
 
         [Required]
-        [MaxLength(13)]
+        //public DateTime DeliveryDate { get; set; }
         public string DeliveryDate { get; set; }
 
         // Navigation properties

@@ -45,14 +45,16 @@ namespace Bakery.Controllers
                 var order1 = new Order()
                 {
                     DeliveryPlace = "New Aarhus Gade 1",
-                    DeliveryDate = DateTime.Parse("2022-01-01")
+                    //DeliveryDate = DateTime.Parse("2022-01-01 12:00")
+                    DeliveryDate = "01012022 1200"
                 };
                 _context.Orders.Add(order1);
 
                 var order2 = new Order()
                 {
                     DeliveryPlace = "Old Aarhus Gade 2",
-                    DeliveryDate = DateTime.Parse("2022-01-02")
+                    //DeliveryDate = DateTime.Parse("2022-01-02 08:00")
+                    DeliveryDate = "02012022 0800"
                 };
                 _context.Orders.Add(order2);
 

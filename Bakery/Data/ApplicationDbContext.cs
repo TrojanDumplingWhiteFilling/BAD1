@@ -74,7 +74,7 @@ namespace MyBGList_Chap6.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // adding many-to-many relationship betweeb Stock and Allergen
+            //adding many-to-many relationship betweeb Stock and Allergen
             modelBuilder.Entity<StockAllergen>()
                 .HasKey(sa => new { sa.StockId, sa.AllergenId });
             

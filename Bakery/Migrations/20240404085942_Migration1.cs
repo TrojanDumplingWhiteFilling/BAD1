@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MyBGList_Chap7.Migrations
+namespace Bakery.Migrations
 {
     /// <inheritdoc />
     public partial class Migration1 : Migration

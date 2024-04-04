@@ -9,7 +9,8 @@ namespace Bakery.DTO
     public class OrderDTO //For Query #2
     {
         public string? DeliveryPlace { get; set; }
-        public DateTime DeliveryDate { get; set; }
+        //public DateTime DeliveryDate { get; set; }
+        public string DeliveryDate { get; set; }
     }
     public class BakedGoodsDTO //For Query #2
     {

@@ -9,11 +9,11 @@ using MyBGList_Chap6.Data;
 
 #nullable disable
 
-namespace MyBGList_Chap7.Migrations
+namespace Bakery.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240403200649_Migration1")]
-    partial class Migration1
+    [Migration("20240404085545_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,24 +24,6 @@ namespace MyBGList_Chap7.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Bakery.Models.Allergen", b =>
-                {
-                    b.Property<int>("AllergenId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AllergenId"));
-
-                    b.Property<string>("AllergenName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("AllergenId");
-
-                    b.ToTable("Allergen");
-                });
 
             modelBuilder.Entity("Bakery.Models.BakingGood", b =>
                 {
@@ -205,21 +187,6 @@ namespace MyBGList_Chap7.Migrations
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("Bakery.Models.StockAllergen", b =>
-                {
-                    b.Property<int>("StockId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AllergenId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StockId", "AllergenId");
-
-                    b.HasIndex("AllergenId");
-
-                    b.ToTable("StockAllergen");
-                });
-
             modelBuilder.Entity("Bakery.Models.BakingGoodBatch", b =>
                 {
                     b.HasOne("Bakery.Models.BakingGood", "BakingGood")
@@ -288,30 +255,6 @@ namespace MyBGList_Chap7.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Bakery.Models.StockAllergen", b =>
-                {
-                    b.HasOne("Bakery.Models.Allergen", "Allergen")
-                        .WithMany("StockAllergens")
-                        .HasForeignKey("AllergenId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Bakery.Models.Stock", "Stock")
-                        .WithMany("StockAllergens")
-                        .HasForeignKey("StockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Allergen");
-
-                    b.Navigation("Stock");
-                });
-
-            modelBuilder.Entity("Bakery.Models.Allergen", b =>
-                {
-                    b.Navigation("StockAllergens");
-                });
-
             modelBuilder.Entity("Bakery.Models.BakingGood", b =>
                 {
                     b.Navigation("BakingGoodBatches");
@@ -336,8 +279,6 @@ namespace MyBGList_Chap7.Migrations
             modelBuilder.Entity("Bakery.Models.Stock", b =>
                 {
                     b.Navigation("BatchStocks");
-
-                    b.Navigation("StockAllergens");
                 });
 #pragma warning restore 612, 618
         }
