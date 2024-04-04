@@ -46,7 +46,8 @@ namespace Bakery.Controllers
                 {
                     DeliveryPlace = "New Aarhus Gade 1",
                     //DeliveryDate = DateTime.Parse("2022-01-01 12:00")
-                    DeliveryDate = "01012022 1200"
+                    DeliveryDate = "01012022 1200",
+                    GPSCoordinates = "56.1234, 10.1234"
                 };
                 _context.Orders.Add(order1);
 
@@ -54,7 +55,8 @@ namespace Bakery.Controllers
                 {
                     DeliveryPlace = "Old Aarhus Gade 2",
                     //DeliveryDate = DateTime.Parse("2022-01-02 08:00")
-                    DeliveryDate = "02012022 0800"
+                    DeliveryDate = "02012022 0800",
+                    GPSCoordinates = "52.1234, 10.1454"
                 };
                 _context.Orders.Add(order2);
 

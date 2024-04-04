@@ -128,7 +128,7 @@ namespace Bakery.Controllers
                 .Select(p => new PacketDTO
                 {
                     TrackId = p.TrackId,
-                    DeliveryPlace =p.Order.DeliveryPlace,
+                    DeliveryPlace = p.Order.DeliveryPlace,
                     GPSCoordinates = p.Order.GPSCoordinates
                 }).ToListAsync();
 

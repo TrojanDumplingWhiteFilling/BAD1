@@ -36,11 +36,14 @@ namespace Bakery.Controllers
                 "Get method started.");
 
             // Retrieve packets associated with the specified order id and send Construct the DTO
-            var StockInfo = await _context.BatchStocks
+            var StockInfo = await _context.Stocks
             .Select(bs => new StockDTO
             {
-                Ingredient = bs.Stock.Name,
-                Quantity = bs.Quantity
+                Ingredient = bs.Name,
+                Quantity = bs.Quantity,
+                Allergens = bs.StockAllergens
+                    .Select(sa => sa.Allergen.AllergenName)
+                    .ToList()
             })
             .ToListAsync();
 
