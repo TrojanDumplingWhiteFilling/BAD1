@@ -137,7 +137,6 @@ namespace Bakery.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("GPSCoordinates")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
