@@ -43,7 +43,9 @@ namespace Bakery.Controllers
                 .Select(o => new BakedGoodQuantityDTO
                 {
                     BakedGood = o.Stock.Name,
-                    Quantity = o.Quantity
+                    Quantity = o.Quantity,
+                    Allergens = o.Stock.StockAllergens.Select(sa => sa.Allergen.AllergenName).ToList()
+
                 }).ToListAsync();
 
             // Construct the response DTO
